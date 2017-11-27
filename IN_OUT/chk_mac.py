@@ -2,23 +2,28 @@ import os
 import datetime
 import time
 
+dir_reading = '/home/pi/Desktop/IN_OUT/reading.txt'
+dir_on_off = '/home/pi/Desktop/IN_OUT/ON_OFF.txt'
+dir_log = '/home/pi/Desktop/IN_OUT/log.txt'
+mac_addr = '84:98:66:7f:95:87'
+
 for i in range(0,10):
     os.system('sudo arp-scan -l > reading.txt')
 
-    with open('/home/pi/Desktop/IN_OUT/reading.txt', 'r') as f:
+    with open(dir_reading, 'r') as f:
         reading = f.read()
 
-    with open('/home/pi/Desktop/IN_OUT/ON_OFF.txt','a') as g:
-        if '84:98:66:7f:95:87' in reading:
+    with open(dir_on_off,'a') as g:
+        if mac_addr in reading:
             g.write('on,')
         else:
             g.write('off,')
     time.sleep(3)
 
-with open('/home/pi/Desktop/IN_OUT/ON_OFF.txt','r') as j:
+with open(dir_on_off,'r') as j:
     test = j.read().split(',')
 
-with open('/home/pi/Desktop/IN_OUT/log.txt', 'a') as h:
+with open(dir_log, 'a') as h:
     if ('on' in test[-11:]):
         h.write(str(datetime.datetime.now()) + ': in' + '\n')
         print('checked in')
@@ -30,7 +35,7 @@ with open('/home/pi/Desktop/IN_OUT/log.txt', 'a') as h:
 
 if len(test) > 11:
     test = test[-11:]
-    with open('/home/pi/Desktop/IN_OUT/ON_OFF.txt','w') as k:
+    with open(dir_on_off,'w') as k:
         k.write(','.join(test))
     
         
