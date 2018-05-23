@@ -5,7 +5,7 @@ import time
 dir_reading = '/home/pi/Desktop/IN_OUT/reading.txt'
 dir_on_off = '/home/pi/Desktop/IN_OUT/ON_OFF.txt'
 dir_log = '/home/pi/Desktop/IN_OUT/log.txt'
-mac_addr = '84:98:66:7f:95:87'
+mac_addr = 'xx:xx:xx:xx:xx:xx'
 
 for i in range(0,10):
     os.system('sudo arp-scan -l > reading.txt')
